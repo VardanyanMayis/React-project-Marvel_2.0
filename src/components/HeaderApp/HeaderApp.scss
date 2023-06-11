@@ -1,0 +1,38 @@
+@import '../../style/variables';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 28px;
+    font-weight: 700;
+    .logo {
+        cursor: pointer;
+        color: $main-color;
+        span {
+            color: $dark;
+        }
+    }
+
+    .menu__items {
+        display: flex;
+        justify-content: space-between;
+        color: $dark;
+
+        li {
+            padding: 0 8px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            &:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        li:last-child {
+            padding-right: 0px;
+        }
+
+        .active {
+            color: $main-color;
+        }
+    }
+}

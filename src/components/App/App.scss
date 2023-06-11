@@ -1,0 +1,23 @@
+.app {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 50px 0 50px 0;
+    position: relative;
+    .bg-decoration {
+        position: absolute;
+        right: -70px;
+        bottom: 0px;
+        z-index: -1;
+    }
+}
+
+main {
+    margin-top: 50px;
+    position: relative;
+}
+
+.main__content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}

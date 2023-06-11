@@ -1,0 +1,61 @@
+@import '../../style/variables.scss';
+
+.form__block {
+    min-width: 425px;
+    max-width: 425px;
+    .form__content {
+        background-color: white;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+        padding: 25px;
+        .title {
+            font-weight: 700;
+            font-size: 18px;
+            color: $dark;
+        }
+
+        .input__block {
+            color: #03710E;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .form__section {
+            margin-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            input {
+                border: none;
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+                min-width: 100%;
+                max-height: 38px;
+                padding: 10px;
+                margin-right: 24px;
+                margin-bottom: 22px;
+            }
+        }
+
+        
+        .form__btns {
+            button {
+                display: block;
+                &:first-child {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+
+    .error {
+        color: $main-color;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .hiden {
+        display: none;
+    }
+}

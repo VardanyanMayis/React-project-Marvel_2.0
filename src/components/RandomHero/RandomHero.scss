@@ -1,0 +1,73 @@
+@import '../../style/variables.scss';
+
+.app__rundom {
+    width: 100%;
+    height: 280px;
+    display: flex;
+    flex: 50% 50%;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+
+    .random__content {
+        padding: 35px 40px;
+    }
+}
+
+.random__result {
+    min-height: 100%;
+    width: 100%;
+
+    .random__content {
+        display: flex;
+    }
+
+    .hero__img{
+        margin-right: 30px;
+        min-height: 210px;
+        max-height: 210px;
+        min-width: 42%;
+        max-width: 42%;
+        .hero__photo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .info__title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 13px;
+    }
+
+    .info__text {
+        font-size: 14px;
+    }
+
+    .info__btns {
+        margin-top: 13px;
+        display: flex;  
+
+        button:first-child {
+            margin-right: 30px;
+        }
+    }
+}
+
+.get__random {
+    min-height: 100%;
+    width: 100%;
+    background-color: $dark;
+
+    p {
+        color: #fff;
+        font-weight: 700;
+        font-size: 24px;
+    }
+    .get__random__text {
+        margin-top: 52px;
+    }
+
+    button {
+        margin-top: 17px;
+    }
+}

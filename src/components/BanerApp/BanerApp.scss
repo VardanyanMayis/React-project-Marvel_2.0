@@ -1,0 +1,30 @@
+@import '../../style/variables.scss';
+
+.app__baner {
+    width: 100%;
+    min-height: 100px;
+    background-color: $dark;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+        margin-left: 45px;
+    }
+
+    ul {
+        margin-left: 85px;
+    }
+
+    .baner__info {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    .banner__logo {
+        margin-right: 25px;
+    }
+}

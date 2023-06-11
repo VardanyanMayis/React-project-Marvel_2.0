@@ -1,0 +1,68 @@
+@import '../../style/variables.scss';
+
+.underfind__hero__block {
+    min-width: 425px;
+    max-width: 425px;
+    margin-bottom: 30px;
+
+    .underfind__info__block {
+        background: white;
+        width: 100%;
+        padding: 25px;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+    
+        .desctiption{
+            margin-bottom: 33px;
+            text-align: center;
+            color: black;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo__name {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+
+            .logo {
+                height: 40px;
+                width: 45px;
+                border-radius: 50%;
+                background: #C4C4C4;
+                margin-right: 10px;
+            }
+
+            .name {
+                width: 100%;
+                height: 16px;
+                background: #C4C4C4;
+            }
+        }
+
+        .block {
+            width: 100%;
+            height: 35px;
+            background: #C4C4C4;
+            margin-bottom: 15px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animating-div {
+    animation: fade 2.5s infinite;
+}
