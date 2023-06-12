@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 import UnderFindHero from '../UnderFindHero/UnderFindHero';
 import Spinner from '../Spinner/Spinner';
@@ -8,50 +8,48 @@ import MarvelServices from '../../services/MarvelServices';
 import './HeroSidebarInfo.scss';
 
 
-class HeroSidebarInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            hero: null,
-            loading: false,
-            error: false
-        }
-        this.getRequest = new MarvelServices();
-    }
+const HeroSidebarInfo = ({heroId}) => {
+    const [hero, setHero] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-    componentDidMount() {
-        const {heroId} = this.props;
+    const getRequest = new MarvelServices();
+
+    useEffect(() => {
         if(heroId) {
-            this.setState({loading:true});
-            this.getHeroValue();
+            setLoading(true);
+            getHeroValue();
         } 
-    }
+    }, []);
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.heroId !== this.props.heroId) {
-            this.setState({loading:true});
-            this.getHeroValue();
+    useEffect(() => {
+        if(heroId) {
+            setLoading(true);
+            getHeroValue();
         }
+    }, [heroId])
+
+
+
+    const onLoadHero = (hero) => {
+        setHero(hero);
+        setLoading(false);
+        setError(false);
     }
 
-    onLoadHero = (hero) => {
-        this.setState({hero, loading: false, error: false});
+    const getHeroValue = () => {
+        getRequest.getSinglHero(heroId)
+            .then(onLoadHero)
+            .catch(() => {
+                setError(true);
+                setLoading(false);
+            });
     }
 
-    getHeroValue = () => {
-        const {heroId} = this.props;
-
-        this.getRequest.getSinglHero(heroId)
-            .then(this.onLoadHero)
-            .catch(() => this.setState({error: true, loading: false}));
-    }
-
-    render() {
-        const {hero, loading, error} = this.state;
-        const showHero = (hero && !loading) ? <View hero={hero} /> : null;
-        const showLoading = (loading) ? <Spinner /> : null;
-        const showError = (error) ? <ErrorMessage /> : null;
-        const showEmpty = (hero || loading || error) ? null : <UnderFindHero />
+    const showHero = (hero && !loading) ? <View hero={hero} /> : null;
+    const showLoading = (loading) ? <Spinner /> : null;
+    const showError = (error) ? <ErrorMessage /> : null;
+    const showEmpty = (hero || loading || error) ? null : <UnderFindHero />
 
         return (
             <div className="hero__sidebar__block">
@@ -61,7 +59,6 @@ class HeroSidebarInfo extends Component {
                 {showEmpty}
             </div>
         )
-    }
 }
 
 

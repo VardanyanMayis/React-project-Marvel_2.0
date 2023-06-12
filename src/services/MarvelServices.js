@@ -18,7 +18,7 @@ class MarvelServices {
     // get array with all heroes
     getAllHeroes = async (limit = this._heroBaseLimit, offset = this._heroStartOffset) => {
         const res = await this.getResources(`${this._apiBase}characters?limit=${limit}&offset=${offset}&${this._apiKey}`);
-        return res.data.results.map(this._transformForSingleHero); // return array with Promises
+        return res.data.results.map(this._transformForSingleHero); 
     }
 
     // get hero with id 
