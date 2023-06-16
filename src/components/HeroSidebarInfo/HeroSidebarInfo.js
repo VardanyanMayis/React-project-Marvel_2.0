@@ -3,28 +3,18 @@ import { useState, useEffect } from 'react';
 import UnderFindHero from '../UnderFindHero/UnderFindHero';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import MarvelServices from '../../services/MarvelServices';
+import useMarvelServices from '../../services/MarvelServices';
 
 import './HeroSidebarInfo.scss';
 
 
 const HeroSidebarInfo = ({heroId}) => {
     const [hero, setHero] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
-    const getRequest = new MarvelServices();
+    const {loading, error, clearError, getSinglHero} = useMarvelServices();
 
     useEffect(() => {
         if(heroId) {
-            setLoading(true);
-            getHeroValue();
-        } 
-    }, []);
-
-    useEffect(() => {
-        if(heroId) {
-            setLoading(true);
             getHeroValue();
         }
     }, [heroId])
@@ -33,17 +23,12 @@ const HeroSidebarInfo = ({heroId}) => {
 
     const onLoadHero = (hero) => {
         setHero(hero);
-        setLoading(false);
-        setError(false);
     }
 
     const getHeroValue = () => {
-        getRequest.getSinglHero(heroId)
+        clearError();
+        getSinglHero(heroId)
             .then(onLoadHero)
-            .catch(() => {
-                setError(true);
-                setLoading(false);
-            });
     }
 
     const showHero = (hero && !loading) ? <View hero={hero} /> : null;

@@ -1,28 +1,67 @@
+import { useState, useEffect, Fragment } from 'react';
+import useMarvelServices from '../../services/MarvelServices';
+import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+
 import './ComixList.scss';
 
-import comix from '../../resources/img/UW.png' //test img
-
 const ComixList = () => {
-    let maxCount = [1, 2, 3, 4, 5, 6, 8, 9];
+    const [comixes, setComixes] = useState([]);
+    const [offset, setOffset] = useState(1000);
+    const [isEnd, setIsEnd] = useState(false);
+    const [firstLoading, setFirstLoading] = useState(true);
 
-    const elsem = maxCount.map(() => (
-        <div className="comix__item">
-        <div className="item__img">
-            <img src={comix} alt="Comix" /> 
-        </div>
-        <div className="comix__title">ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</div> 
-        <div className="comix__price">9.99$</div>
-    </div>
-    ));
+    const {loading, error, getAllComixes} = useMarvelServices();
+
+    useEffect(() => {
+        onRequest();
+    }, [])
+
+    useEffect(() => {
+        if(comixes.length > 0) setFirstLoading(false);
+    }, [comixes])
+
+    const onRequest = () => {
+        getAllComixes(offset)
+            .then(onLoaded);
+    }
+
+    const onLoaded = (newComixes) => {
+        if(newComixes.length < 8) setIsEnd(true);
+
+        setComixes(comixes => [...comixes, ...newComixes]);
+        setOffset(offset => offset + 8);
+    }
+
+    const comix = comixes.map((item, index) => {
+        console.log(item.id);
+        return (
+            <Fragment key={index}>
+           <div className="comix__item">    
+                <div className="item__img">
+                    <img src={item.img} alt="Comix" /> 
+                </div>
+                <div className="comix__title">{item.title}</div>
+                <div className="comix__price">{item.price}$</div>
+            </div>
+            </Fragment>
+        )
+    })
 
     return (
         <div className="comix__content">
             <div className="comix__list">
-                {elsem}
-            </div>
+                {error ? <ErrorMessage/> : (loading && firstLoading) 
+                    ? <Spinner/> : null}
 
-            <button className='button button__main'>
-                <div className="inner">Hello World</div>
+                {comix}
+            </div>
+            
+            <button 
+                className='button button__main'
+                onClick={onRequest}
+                style={{display: (loading || isEnd) ? 'none' : 'block'}}>
+                <div className="inner">More</div>
             </button>
         </div>     
     )

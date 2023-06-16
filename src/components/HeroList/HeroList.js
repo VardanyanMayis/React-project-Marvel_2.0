@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-import MarvelServices from '../../services/MarvelServices';
+import useMarvelServices from '../../services/MarvelServices';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Spinner from '../Spinner/Spinner';
 import { Fragment } from 'react';
@@ -10,15 +10,13 @@ import './HeroList.scss';
 
 const HeroList = (props) => {
     const [heroes, setHeroes] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [offset, setOffset] = useState(300);
     const [newHeroloading, setNewHeroloading] = useState(false);
     const [endOfList, setEndOfList] = useState(false);
     const [prevFocus, setPrevFocus] = useState(false);
     const arrayRefs = useRef([]);
 
-    const getResurses = new MarvelServices();
+    const {loading, error, getAllHeroes} = useMarvelServices();
 
     useEffect(() => {
         let startLimit = window.localStorage.getItem('firstLimit');
@@ -27,18 +25,14 @@ const HeroList = (props) => {
         onRequest(offset);
     }, []);
 
-    useEffect(() => {
-        window.localStorage.setItem('firstLimit', heroes.length);
-    }, [offset])
-
     const onLoaded = (newHeroList, limit) => {
         let endList = false;
         if(newHeroList.length < 9) {
             endList = true;
         }
 
+        window.localStorage.setItem('firstLimit', heroes.length);
         setHeroes(heroes => [...heroes, ...newHeroList]);
-        setLoading(false);
         setOffset(offset => offset + +limit);
         setNewHeroloading(false);
         setEndOfList(endList);
@@ -47,11 +41,8 @@ const HeroList = (props) => {
     const onRequest = (offset, limit = 9) => {
         setNewHeroloading(true);
 
-        getResurses.getAllHeroes(limit, offset)
+        getAllHeroes(limit, offset)
             .then(heroes => onLoaded(heroes, limit))
-            .catch(error => {
-                setError(true);
-            });
     }
 
     const onSelectedHeroByEnter = (event, id, index) => {
@@ -61,7 +52,7 @@ const HeroList = (props) => {
     }
 
     const onSelectedHero = (id, index) => {
-        props.onSelectedHer(id);
+        props.onSelectedHero(id);
         if(prevFocus !== index && prevFocus !== false) {
             arrayRefs.current[prevFocus].classList.remove('hero__item__focus');
         } 
@@ -109,7 +100,9 @@ const HeroList = (props) => {
     return (
         <div className="hero__contnet">
             <div className="hero__list">
-            {error ? <ErrorMessage /> : loading ? <Spinner /> : getHeroList(heroes)}
+            {getHeroList(heroes)}
+            {error ? <ErrorMessage /> : (loading && heroes.length < 9) 
+                ? <Spinner /> : null}
 
             </div>
             <button

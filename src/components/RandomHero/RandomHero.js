@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import MarvelServices from '../../services/MarvelServices';
+import useMarvelServices from '../../services/MarvelServices';
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
@@ -9,39 +9,19 @@ import armor from '../../resources/img/Armor.png';
 
 
 const RandomHero = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [hero, setHero] = useState({});
 
-    const getRequest = new MarvelServices();
+    const {loading, error, getSinglHero, clearError} = useMarvelServices();
 
     // for the first run
-    useEffect(() => {
-        const randomBtn = document.querySelector('#getRandom');
-        randomBtn.addEventListener('click', getRandomHero);
-        getRandomHero();
-
-        return () => randomBtn.removeEventListener('click', this.getRandomHero);
-    }, []);
-
-
-    const onLoadHero = (hero) => {
-        setHero(hero);
-        setError(false);
-        setLoading(false);
-    }
+    useEffect(() => {getRandomHero()}, []);
 
     const getRandomHero = () => {
+        clearError();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        setLoading(true);
         
-
-        getRequest.getSinglHero(id)
-            .then(onLoadHero)
-            .catch(() => {
-                setError(true);
-                setLoading(false);
-            });
+        getSinglHero(id)
+            .then(data => setHero(data))
     }
 
     return (
@@ -65,6 +45,7 @@ const RandomHero = () => {
                     <p className="get__random__text">Or choose another one</p>
 
                     <button
+                        onClick={getRandomHero}
                         id='getRandom'
                         // onClick={this.getRandomHero}
                         className='button button__main'>

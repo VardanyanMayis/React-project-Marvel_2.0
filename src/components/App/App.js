@@ -20,44 +20,39 @@ import bg from '../../resources/img/bg.png';
 import './App.scss';
 
 const App = () => {
-    const [heroId, setHeroId] = useState(null); 
-    const [componentRandom, setComponentRandom] = useState(true)
-
+    const [heroId, setHeroId] = useState(null);
 
     const onSelectedHero = (heroId) => {
         if(heroId) setHeroId(heroId);
     }
 
-
     return (
         <div className="app">
             <HeaderApp />
             <main>
-                {componentRandom ? 
-                <ForRandomHero>
+                {/* <ForRandomHero>
                     <RandomHero />
-                </ForRandomHero> : <BanerApp />}
+                </ForRandomHero> */}
+
+                <BanerApp />
 
                 <div className="main__content">
-                    {/* <SingHero /> */}
                     <ErrorBoundary>
-                        <HeroList onSelectedHer={onSelectedHero} />
+                        {/* <HeroList onSelectedHero={onSelectedHero} /> */}
+                        <ComixList/>
+                        {/* <SinglComix id={92271}/> */}
                     </ErrorBoundary>
-                    {/* <ComixList /> */}
-                    {/* <SinglComix /> */}
-                    <section>
-                        {/* <UnderFindHero /> */}
+                    {/* <section>
                         <ErrorBoundary>
                             <HeroSidebarInfo heroId={heroId} />
                         </ErrorBoundary>
-                        {/* <FormApp /> */}
-                    </section>
+                    </section> */}
                 </div>
             </main>
 
-            <div className="bg-decoration">
+            {/* <div className="bg-decoration">
                 <img src={bg} alt="bg decaration" />
-            </div>
+            </div> */}
         </div>
     )
 }
