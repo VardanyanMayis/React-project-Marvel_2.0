@@ -29,7 +29,8 @@ const useMarvelServices = () => {
             description: comix.description ? comix.description 
                 : 'Sorry but about this comix information is underfind',
             page: comix.pageCount,
-            price: comix.prices[0].price ? comix.prices[0].price : 0
+            price: comix.prices[0].price === 0 ? 'not on sale' 
+                : comix.prices[0].price + '$'
         }
     }
 

@@ -1,3 +1,5 @@
+import {NavLink} from 'react-router-dom';
+
 import './HeaderApp.scss';
 
 const HeaderApp = () => {
@@ -6,9 +8,13 @@ const HeaderApp = () => {
             <div className="logo">Marvel <span>information portal</span></div>
             <menu className='menu'>
                 <ul className='menu__items'>
-                    <li className='active'>Characters</li>
+                    <li>
+                        <NavLink to='/'>Characters</NavLink>
+                    </li>
                     /
-                    <li>Comics</li>
+                    <li>
+                        <NavLink to='/comixes'>Comics</NavLink>
+                    </li>
                 </ul>
             </menu>
         </header>

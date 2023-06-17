@@ -34,7 +34,6 @@ const ComixList = () => {
     }
 
     const comix = comixes.map((item, index) => {
-        console.log(item.id);
         return (
             <Fragment key={index}>
            <div className="comix__item">    
@@ -42,7 +41,7 @@ const ComixList = () => {
                     <img src={item.img} alt="Comix" /> 
                 </div>
                 <div className="comix__title">{item.title}</div>
-                <div className="comix__price">{item.price}$</div>
+                <div className="comix__price">{item.price}</div>
             </div>
             </Fragment>
         )

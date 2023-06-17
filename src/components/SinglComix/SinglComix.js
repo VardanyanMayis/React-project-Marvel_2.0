@@ -43,7 +43,7 @@ const ShowComix = ({comix}) => {
                         <li>{comix.description}</li>
                         <li>{comix.page} pages</li>
                         <li>Language: en-us</li>
-                        <li className="price">{comix.price}$</li>
+                        <li className="price">{comix.price}</li>
                     </ul>
             </div>
         </>
