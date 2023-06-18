@@ -9,7 +9,7 @@ const HeaderApp = () => {
             <menu className='menu'>
                 <ul className='menu__items'>
                     <li>
-                        <NavLink to='/'>Characters</NavLink>
+                        <NavLink end to='/'>Characters</NavLink>
                     </li>
                     /
                     <li>

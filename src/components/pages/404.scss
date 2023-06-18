@@ -1,0 +1,20 @@
+.error__404 {
+    text-align: center;
+    margin-top: 40px;
+
+    h2 {
+        font-weight: 500;
+        font-size: 70px;
+    }
+
+    p {
+        color: rgb(0, 0, 126);
+        margin-top: 20px;
+        font-size: 30px;
+
+        a {
+            font-weight: 700;
+            color: rgb(255, 204, 37);
+        }
+    }
+}

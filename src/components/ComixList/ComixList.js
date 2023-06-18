@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 import { useState, useEffect, Fragment } from 'react';
 import useMarvelServices from '../../services/MarvelServices';
 import Spinner from '../Spinner/Spinner';
@@ -36,13 +38,13 @@ const ComixList = () => {
     const comix = comixes.map((item, index) => {
         return (
             <Fragment key={index}>
-           <div className="comix__item">    
+           <Link to={`${item.id}`} className="comix__item">    
                 <div className="item__img">
                     <img src={item.img} alt="Comix" /> 
                 </div>
                 <div className="comix__title">{item.title}</div>
                 <div className="comix__price">{item.price}</div>
-            </div>
+            </Link>
             </Fragment>
         )
     })
